@@ -22,7 +22,7 @@ void enterStudentInformation(string *, float *, int);
 float *sortArrayScores(float *, int);
 string *sortArrayNames(string *, float *, int);
 void swap(float *, float *);
-void swap(string *, string *);
+void swapStrings(string *, string *);
 void displaySortedArrays(string *, float *, int);
 
 int main()
@@ -80,11 +80,6 @@ void enterStudentInformation(string *strArrNames, float *fltArrScores, int intSt
             cin >> *(fltArrScores + i);
         }
     }
-    
-    for(int i = 0 ; i < intStudents ; i++)
-    {
-        cout << *(strArrNames + i) << endl;
-    }
 }
 
 float *sortArrayScores(float *fltArrScores, int intStudents)
@@ -134,7 +129,7 @@ string *sortArrayNames(string *strArrNames, float *fltArrScores, int intStudents
             }
         }
         swap(fltArrScores[intMinIndex], fltArrScores[intStart]);
-        swap(strArrNames[intMinIndex], strArrNames[intStart]);
+        swapStrings(&strArrNames[intMinIndex], &strArrNames[intStart]);
     }
     
     return strArrNames;
@@ -149,7 +144,7 @@ void swap(float *fltA, float *fltB)
     fltB = fltTemp;
 }
 
-void swap(string *strA, string *strB)
+void swapStrings(string *strA, string *strB)
 {
     string *strTemp = nullptr;
 
