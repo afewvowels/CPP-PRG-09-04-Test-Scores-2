@@ -22,7 +22,7 @@ void enterStudentInformation(string *, float *, int);
 float *sortArrayScores(float *, int);
 string *sortArrayNames(string *, float *, int);
 void swap(float *, float *);
-void swapStrings(string *, string *);
+void swap(string *, string *);
 void displaySortedArrays(string *, float *, int);
 
 int main()
@@ -30,6 +30,7 @@ int main()
     string *strStudentNames = nullptr;
     
     float *fltStudentScores = nullptr;
+    float *fltStudentScores2 = nullptr;
     
     int intStudentsTotal;
     
@@ -37,11 +38,14 @@ int main()
     
     strStudentNames = new string[intStudentsTotal];
     fltStudentScores = new float[intStudentsTotal];
+    fltStudentScores2 = new float[intStudentsTotal];
     
     enterStudentInformation(strStudentNames, fltStudentScores, intStudentsTotal);
     
+    *fltStudentScores2 = *fltStudentScores;
+    
     fltStudentScores = sortArrayScores(fltStudentScores, intStudentsTotal);
-    strStudentNames = sortArrayNames(strStudentNames, fltStudentScores, intStudentsTotal);
+    strStudentNames = sortArrayNames(strStudentNames, fltStudentScores2, intStudentsTotal);
     
     displaySortedArrays(strStudentNames, fltStudentScores, intStudentsTotal);
 }
@@ -110,10 +114,18 @@ float *sortArrayScores(float *fltArrScores, int intStudents)
 
 string *sortArrayNames(string *strArrNames, float *fltArrScores, int intStudents)
 {
+    
+    for(int i = 0 ; i < intStudents ; i++)
+    {
+        cout << *(fltArrScores + i) << endl;
+    }
+    
     int intStart;
     int intMinIndex;
     
-    float *fltMinElement;
+    float *fltMinElement = nullptr;
+    
+    string *strMinElement = nullptr;
     
     for(intStart = 0 ; intStart < (intStudents - 1) ; intStart++)
     {
@@ -125,15 +137,17 @@ string *sortArrayNames(string *strArrNames, float *fltArrScores, int intStudents
             if(fltArrScores[index] < *fltMinElement)
             {
                 fltMinElement = &fltArrScores[index];
+                strMinElement = &strArrNames[index];
                 intMinIndex = index;
             }
         }
         swap(fltArrScores[intMinIndex], fltArrScores[intStart]);
-        swapStrings(&strArrNames[intMinIndex], &strArrNames[intStart]);
+        swap(strArrNames[intMinIndex], strArrNames[intStart]);
     }
     
     return strArrNames;
 }
+
 
 void swap(float *fltA, float *fltB)
 {
@@ -144,7 +158,7 @@ void swap(float *fltA, float *fltB)
     fltB = fltTemp;
 }
 
-void swapStrings(string *strA, string *strB)
+void swap(string *strA, string *strB)
 {
     string *strTemp = nullptr;
 
